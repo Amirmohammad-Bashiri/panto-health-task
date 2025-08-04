@@ -1,18 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
 import * as d3 from "d3";
 
 interface SingleChartProps {
   data: { x: number; y: number }[];
   svgRef: React.RefObject<SVGSVGElement>;
-  tooltipRef: React.RefObject<HTMLDivElement>;
 }
 
-const SingleChart: React.FC<SingleChartProps> = ({
-  data,
-  svgRef,
-  tooltipRef,
-}) => {
-  React.useEffect(() => {
+const SingleChart: React.FC<SingleChartProps> = ({ data, svgRef }) => {
+  useEffect(() => {
     if (!svgRef.current || data.length === 0) return;
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();

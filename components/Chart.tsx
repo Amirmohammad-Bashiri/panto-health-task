@@ -125,11 +125,7 @@ export default function Chart({ data }: ChartProps) {
         <div className="w-full max-w-[800px] overflow-x-auto border border-gray-200 rounded">
           <svg ref={svgRef} className="block" />
           {chartType === "single" ? (
-            <SingleChart
-              data={processedSingleSeriesData}
-              svgRef={svgRef}
-              tooltipRef={tooltipRef}
-            />
+            <SingleChart data={processedSingleSeriesData} svgRef={svgRef} />
           ) : (
             <MultiChart
               seriesData={

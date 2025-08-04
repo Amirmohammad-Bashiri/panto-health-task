@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Chart from "@/components/Chart";
+import useChartData from "@/hooks/useChartData";
 
 interface ChartData {
   title: string;
@@ -10,29 +9,7 @@ interface ChartData {
 }
 
 export default function Home() {
-  const [chartsData, setChartsData] = useState<ChartData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Revert the fetch path back to public/data.json
-        const response = await fetch("/data.json");
-        if (!response.ok) {
-          throw new Error("Failed to load chart data");
-        }
-        const data = await response.json();
-        setChartsData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
+  const { chartsData, loading, error } = useChartData();
 
   if (loading) {
     return (
@@ -45,7 +22,7 @@ export default function Home() {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-600">Error: {error}</div>
+        <div className="text-red-600">Error: {error as string}</div>
       </div>
     );
   }
@@ -56,7 +33,7 @@ export default function Home() {
         D3.js Chart Visualization
       </h1>
       <div className="space-y-12">
-        {chartsData.map((chartData, index) => (
+        {chartsData.map((chartData: ChartData, index: number) => (
           <div key={index} className="bg-white rounded-lg shadow-lg p-6">
             <Chart data={chartData} />
           </div>
