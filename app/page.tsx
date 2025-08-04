@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import Chart from "@/components/Chart";
 
 interface ChartData {
@@ -17,7 +18,7 @@ export default function Home() {
     const loadData = async () => {
       try {
         // Revert the fetch path back to public/data.json
-        const response = await fetch("./data.json");
+        const response = await fetch("/data.json");
         if (!response.ok) {
           throw new Error("Failed to load chart data");
         }
