@@ -93,7 +93,7 @@ export default function Chart({ data }: ChartProps) {
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
-              className="form-checkbox h-4 w-4 text-blue-600"
+              className="h-4 w-4 text-blue-600"
               checked={visibleSeries[0]}
               onChange={() => handleSeriesToggle(0)}
             />
@@ -102,7 +102,7 @@ export default function Chart({ data }: ChartProps) {
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
-              className="form-checkbox h-4 w-4 text-green-600"
+              className="h-4 w-4 text-green-600"
               checked={visibleSeries[1]}
               onChange={() => handleSeriesToggle(1)}
             />
@@ -113,7 +113,7 @@ export default function Chart({ data }: ChartProps) {
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
-              className="form-checkbox h-4 w-4 text-red-600"
+              className="h-4 w-4 text-red-600"
               checked={visibleSeries[2]}
               onChange={() => handleSeriesToggle(2)}
             />
@@ -124,9 +124,10 @@ export default function Chart({ data }: ChartProps) {
       <div className="flex justify-center">
         <div className="w-full max-w-[800px] overflow-x-auto border border-gray-200 rounded">
           <svg ref={svgRef} className="block" />
-          {chartType === "single" ? (
+          {chartType === "single" && (
             <SingleChart data={processedSingleSeriesData} svgRef={svgRef} />
-          ) : (
+          )}
+          {chartType === "multi" && (
             <MultiChart
               seriesData={
                 processedMultiSeriesData as [
